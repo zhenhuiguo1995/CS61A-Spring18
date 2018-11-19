@@ -115,7 +115,6 @@ class Place(object):
                     assert False, '{0} is not in {1}'.format(insect, self)
         else:
             self.bees.remove(insect)
-
         insect.place = None
 
     def __str__(self):
@@ -210,7 +209,7 @@ class Ant(Insect):
         # BEGIN Problem 9
         "*** YOUR CODE HERE ***"
         if self.container and self.ant == None and other.container == False:
-                    return True
+            return True
         return False
         # END Problem 9
 
@@ -311,15 +310,13 @@ class FireAnt(Ant):
         "*** YOUR CODE HERE ***"
         self.armor -= amount
         if self.armor <= 0:
+            for bee in self.place.bees:
+                bee.armor -= self.damage
             bee_list = self.place.bees.copy()
-            for x in self.place.bees:
-                if (x.armor - self.damage) < 1:
-                    bee_list.remove(x)
-            self.place.bees = bee_list
-            for x in self.place.bees:
-                x.armor -= self.damage
+            for bee in bee_list:
+                if bee.armor <= 0:
+                    self.place.bees.remove(bee)
             self.place.remove_insect(self)
-    
         # END Problem 5
 
 
@@ -420,6 +417,7 @@ class HungryAnt(Ant):
     implemented = True   # Change to True to view in the GUI
     food_cost = 4
     time_to_digest = 3
+    armor = 1
     # END Problem 6
 
     def __init__(self):
