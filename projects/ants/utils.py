@@ -2,7 +2,7 @@ def class_method_wrapper(method, pre=None, post=None):
     """Given a class METHOD and two wrapper function, a PRE-function and
     POST-function, first calls the pre-wrapper, calls the wrapped class method,
     and then calls the post-wrapper.
-    
+
     All wrappers should have the parameters (self, rv, *args). However,
     pre-wrappers will always have `None` passed in as `rv`, since a return
     value has not been evaluated yet.
@@ -33,10 +33,11 @@ def class_method_wrapper(method, pre=None, post=None):
         return rv
     return wrapped_method
 
+
 def print_expired_insects(self, rv, *args):
     """Post-wrapper for Insect.reduce_armor, and will print a message if the
     insect has expired (armor reduced to 0).
-    
+
     >>> from ants import Insect, Bee, ThrowerAnt, Place
     >>> Insect.reduce_armor = class_method_wrapper(Insect.reduce_armor,
     ...         pre=print_expired_insects)
@@ -54,6 +55,7 @@ def print_expired_insects(self, rv, *args):
     if self.armor <= args[0]:
         print('{0}({1}) ran out of armor and expired'.format(
             type(self).__name__, self.place))
+
 
 def print_thrower_target(self, rv, *args):
     """Prints the target of a ThrowerAnt, if the ThrowerAnt found a target.
