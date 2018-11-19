@@ -114,7 +114,8 @@ class Place(object):
                 else:
                     assert False, '{0} is not in {1}'.format(insect, self)
         else:
-            self.bees.remove(insect)
+            if insect in self.bees:
+                self.bees.remove(insect)
         insect.place = None
 
     def __str__(self):
@@ -310,12 +311,9 @@ class FireAnt(Ant):
         "*** YOUR CODE HERE ***"
         self.armor -= amount
         if self.armor <= 0:
-            for bee in self.place.bees:
-                bee.armor -= self.damage
-            bee_list = self.place.bees.copy()
-            for bee in bee_list:
-                if bee.armor <= 0:
-                    self.place.bees.remove(bee)
+            bees_copy = list(self.place.bees)
+            for bee in bees_copy:
+                bee.reduce_armor(self.damage)
             self.place.remove_insect(self)
         # END Problem 5
 
