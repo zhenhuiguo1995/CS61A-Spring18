@@ -214,24 +214,23 @@ def announce_highest(who, previous_high=0, previous_score=0):
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
-    def check(score0, score1):
-        nonlocal previous_high
-        nonlocal previous_score
-        increase = score0 *(not who) + score1 * who - previous_score        
-        if previous_high < increase:
-            if increase == 1:
-                print(increase,'point! That\'s the biggest gain yet for Player', who)
+    # still unresovled
+    def say(score0, score1):
+        nonlocal previous_high, previous_score
+        if who == 0:
+            current_score = score0 - previous_score
+            previous_score = score0
+        elif who == 1:
+            current_score = score1 - previous_score
+            previous_score = score1
+        if current_score > previous_high:
+            if current_score == 1:
+                print("1 point! That's the biggest gain yet for Player", who)
             else:
-                print(increase,'points! That\'s the biggest gain yet for Player', who)
-            previous_high = increase
-        previous_score = score0 *(not who)+ score1 * who
-        #print(previous_score, previous_high)
+                print(current_score, "points! That's the biggest gain yet for Player", who)
+            previous_high = current_score  # Only when current_score > previous_high this statement was executed
         return announce_highest(who, previous_high, previous_score)
-    return check 
-    #I think the problem is to keep track of previous_high and previous_score of each f
-    #when calling f(n+1), the previous_high and previous_score should be that of f(n), regardless of the execution order
-    #but i don't have an idea as to how to implement it.
-    # END PROBLEM 7
+    return say
 
 
 #######################
