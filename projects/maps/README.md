@@ -8,5 +8,5 @@ This project aims to create a visualization of restaurant ratings using machine 
 - Data abstraction
 - Unsupervised Learning
   - k-means algorithm
-- Data visualization
 - Supervised Learning with least-squares linear regression
+- Data Visualization
