@@ -86,7 +86,6 @@ def k_means(restaurants, k, max_updates=100):
     old_centroids, n = [], 0
     # Select initial centroids randomly by choosing k different restaurants
     centroids = [restaurant_location(r) for r in sample(restaurants, k)]
-
     while old_centroids != centroids and n < max_updates:
         old_centroids = centroids
         # BEGIN Question 6
@@ -193,11 +192,8 @@ def rate_all(user, restaurants, feature_fns):
         if element in reviewed:
             int_rating = int(user_rating(user, name))
             restaurant_rating_dict[name] = int_rating
-            #print(restaurant_rating_dict)
-        #print(restaurant_rating_dict)
-        predicted_rating = float(predictor(element))
-        restaurant_rating_dict[name] = predicted_rating
-    #print(restaurant_rating_dict)
+        else:
+            restaurant_rating_dict[name] = float(predictor(element))
     return restaurant_rating_dict
     # END Question 9
 
